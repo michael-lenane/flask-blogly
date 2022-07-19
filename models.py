@@ -2,7 +2,14 @@
 
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy
+db = SQLAlchemy()
+
+
+def connect_db(app):
+    """Connect to database."""
+
+    db.app = app
+    db.init_app(app)
 
 
 class Users (db.Model):
@@ -18,6 +25,6 @@ class Users (db.Model):
     last_name = db.Column(db.String(20),
                           nullable=False)
 
-    image_url = db.Column(db.URL,
+    image_url = db.Column(db.String,
                           nullable=True,
                           default="https://www.istockphoto.com/photos/profile-avatar")
