@@ -27,7 +27,7 @@ def home_page():
 
 
 @app.route('/<int:user_id>')
-def show_pet(user_id):
+def show_user(user_id):
     """Show details about selected pet"""
     user = Users.query.get_or_404(user_id)
     return render_template('detail.html', user=user)
@@ -46,3 +46,21 @@ def create_user():
     db.session.commit()
 
     return redirect(f"/{new_user.id}")
+
+
+@app.route('/<int:user_id>/edit')
+def edit_user(user_id):
+    """Show details about selected pet"""
+    user = Users.query.get_or_404(user_id)
+
+    first = request.form["first_name"]
+    last = request.form["last_name"]
+    image = request.form["image_url"]
+
+    user.first_name = first
+    user.last_name = last
+    user.image = image
+
+    db.session.commit()
+
+    return render_template('edit.html', first=first, last=last, image=image)
