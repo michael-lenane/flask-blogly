@@ -20,4 +20,6 @@ db.create_all()
 @app.route("/")
 def home_page():
     """Display home page"""
-    return render_template('start_page.html')
+
+    users = Users.query.all()
+    return render_template('start_page.html', users=users)
