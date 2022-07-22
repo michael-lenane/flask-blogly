@@ -71,3 +71,13 @@ def submit_edits():
     db.session.commit()
 
     return redirect('/')
+
+
+@app.route('/delete/<int:user_id>')
+def delete_user(user_id):
+
+    Users.query.filter(Users.id == user_id).delete()
+
+    db.session.commit()
+
+    return redirect('/')
