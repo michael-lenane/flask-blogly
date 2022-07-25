@@ -18,12 +18,14 @@
             <a href="/delete/{{user.id}}">Delete</a>
         </div>
 
-    <div class="content-3">
-        <h2>Posts</h2>
-        {% for post in posts %}
-            
+    <h3>Posts</h3>
+    <ul>
+        {% for post in posts%}
+            <li><a href="/{{post.title}}">{{post.title}}</a></li>
         {% endfor %}
-    </div>
+    </ul>
+
+    <a href="/add-post">Add Post</a>
         
     </div>
 </div>

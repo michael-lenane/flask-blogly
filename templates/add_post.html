@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<form action="/add-post">
+    <label for="title">
+        <input type="text">
+    </label>
+    <label for="content">
+        <input type="text">
+    </label>
+    <button>Add</button>
+</form>
+{% endblock %}

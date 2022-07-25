@@ -2,7 +2,7 @@
 
 from site import USER_SITE
 from flask import Flask, render_template, request, redirect, flash
-from models import db, connect_db, Users
+from models import db, connect_db, Users, datetime, Post
 from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
@@ -23,7 +23,8 @@ def home_page():
     """Display home page"""
 
     users = Users.query.all()
-    return render_template('start_page.html', users=users)
+    posts = Post.query.all()
+    return render_template('start_page.html', users=users, posts=posts)
 
 
 @app.route('/', methods=["POST"])
