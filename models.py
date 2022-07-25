@@ -42,6 +42,7 @@ class Post (db.Model):
 
     content = db.Column(db.String, nullable=False)
 
-    created_at = db.Column(db.String, default=datetime.datetime.now())
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now())
 
-    author_code = db.Column(db.Integer, db.ForeignKey('users.id'))
+    author_code = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)

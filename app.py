@@ -23,7 +23,7 @@ def home_page():
     """Display home page"""
 
     users = Users.query.all()
-    posts = Post.query.all()
+    posts = Post.query.order_by(Post.created_at.desc()).limit(5).all()
     return render_template('start_page.html', users=users, posts=posts)
 
 
@@ -46,7 +46,8 @@ def create_user():
 def show_user(user_id):
     """Show details about selected pet"""
     user = Users.query.get_or_404(user_id)
-    return render_template('detail.html', user=user)
+    posts = Post.query.all()
+    return render_template('detail.html', user=user, posts=posts)
 
 
 @app.route('/edit/<int:user_id>')
@@ -82,3 +83,30 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect('/')
+
+
+"""here"""
+
+
+@app.route('/users/<int:user_id>/posts/new')
+def posts_new_form(user_id):
+    """Show a form to create a new post for a specific user"""
+
+    user = Users.query.get_or_404(user_id)
+    return render_template('add_post.html', user=user)
+
+
+@app.route('/users/<int:user_id>/posts/new', methods=["POST"])
+def posts_new(user_id):
+    """Handle form submission for creating a new post for a specific user"""
+
+    user = Users.query.get_or_404(user_id)
+    new_post = Post(title=request.form['title'],
+                    content=request.form['content'],
+                    )
+
+    db.session.add(new_post)
+    db.session.commit()
+    flash(f"Post '{new_post.title}' added.")
+
+    return redirect("/")

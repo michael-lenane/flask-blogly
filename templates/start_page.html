@@ -12,12 +12,14 @@
         {% endfor %}
     </ul>
 
-    <h3>Posts</h3>
+
+    <h2>Posts</h2>
     <ul>
-        {% for post in posts%}
-            <li><a href="/{{post.title}}">{{post.title}}</a></li>
+        {% for post in posts %}
+            <li>{{post.title}}</li>
         {% endfor %}
     </ul>
+
 
     <h3>Create User:</h3>
     <form action="/" method="POST">
